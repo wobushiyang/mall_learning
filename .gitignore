@@ -1,0 +1,10 @@
+*.class
+
+#maven ignore
+target/
+
+*.idea/
+/idea/
+
+*.iml
+
