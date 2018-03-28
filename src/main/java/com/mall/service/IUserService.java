@@ -2,10 +2,6 @@ package com.mall.service;
 
 import com.mall.common.ServerResponse;
 import com.mall.pojo.User;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-
-import javax.jws.soap.SOAPBinding;
-
 /**
  * Created by ouyangyaoxu on 2018/3/24.
  */
@@ -26,4 +22,6 @@ public interface IUserService {
     ServerResponse<String> resetPassword(String passwordOld,String passwordNew,User user);
 
     ServerResponse<User> updateInfomation(User user);
+
+    ServerResponse checkAdminRole(User user);
 }
