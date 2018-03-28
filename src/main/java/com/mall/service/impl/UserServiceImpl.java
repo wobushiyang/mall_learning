@@ -148,11 +148,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ServerResponse<User> updateInfomation(User user) {
+    public ServerResponse<User> updateInformation(User user) {
         //username是不能被更新的
         //email也要进行一个校验,校验新的email是不是已经存在,并且存在的email如果相同的话,不能是我们当前的这个用户的.
-        int resultCount = userMapper.checkEmailByUserId(user.getEmail(),user.getId());
-        if(resultCount > 0){
+        int resultCount = userMapper.checkEmailByUserId(user.getEmail(), user.getId());
+        if (resultCount > 0) {
             return ServerResponse.createByErrorMessage("email已存在,请更换email再尝试更新");
         }
         User updateUser = new User();
@@ -163,19 +163,38 @@ public class UserServiceImpl implements IUserService {
         updateUser.setAnswer(user.getAnswer());
 
         int updateCount = userMapper.updateByPrimaryKeySelective(updateUser);
-        if(updateCount > 0){
-            return ServerResponse.createBySuccess("更新个人信息成功",updateUser);
+        if (updateCount > 0) {
+            return ServerResponse.createBySuccess("更新个人信息成功", updateUser);
         }
         return ServerResponse.createByErrorMessage("更新个人信息失败");
     }
 
+    @Override
+    public ServerResponse<User> getInformation(Integer userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        if (user == null) {
+            return ServerResponse.createByErrorMessage("找不到当前用户");
+        }
+        user.setPassword(StringUtils.EMPTY);
+        return ServerResponse.createBySuccess(user);
+    }
 
+
+    //backend
+
+    /**
+     * 校验是否是管理员
+     * @param user
+     * @return
+     */
     public ServerResponse checkAdminRole(User user){
         if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN){
             return ServerResponse.createBySuccess();
         }
         return ServerResponse.createByError();
     }
+
+
 
 
 }
