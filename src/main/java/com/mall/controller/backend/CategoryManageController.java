@@ -43,7 +43,6 @@ public class CategoryManageController {
         return ServerResponse.createByErrorMessage("无权限操作,需要管理员权限");
     }
 
-
     @RequestMapping(value = "setCategoryName.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse setCategoryName(HttpSession session,Integer categoryId,String categoryName){
@@ -82,7 +81,6 @@ public class CategoryManageController {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登陆,请登陆");
         }
         if(iUserService.checkAdminRole(user).isSuccess()){
-            //平行查找，不递归
             return iCategoryService.selectCategoryAndChildrenById(categoryId);
         }
         return ServerResponse.createByErrorMessage("无权限操作,需要管理员权限");
