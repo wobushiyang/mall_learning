@@ -87,7 +87,8 @@ public class ProductManageController {
         return ServerResponse.createByErrorMessage("无权限操作");
     }
 
-
+    @RequestMapping(value = "productSearch.do", method = RequestMethod.POST)
+    @ResponseBody
     public ServerResponse productSearch(HttpSession session, String productName, Integer productId,
                                         @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                         @RequestParam(value = "pageNum", defaultValue = "1") int pageSize) {
