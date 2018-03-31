@@ -192,11 +192,10 @@
             <if test="productName != null">
                 and name like #{productName}
             </if>
-            <if test="productId != null">
-                and productId = #{productId}
-            </if>
+            <!--<if test="productId != null">-->
+                <!--and productId = #{productId}-->
+            <!--</if>-->
         </where>
-
     </select>
 
 </mapper>

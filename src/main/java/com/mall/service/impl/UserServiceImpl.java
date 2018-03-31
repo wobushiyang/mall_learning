@@ -61,13 +61,13 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ServerResponse<String> checkValid(String value, String type) {
         if (StringUtils.isNotBlank(type)) {
-            if (Const.USERNAME.equals(value)) {
+            if (Const.USERNAME.equals(type)) {
                 int resultCount = userMapper.checkUsername(value);
                 if (resultCount > 0) {
                     return ServerResponse.createByErrorMessage("用户已存在");
                 }
             }
-            if (Const.EMAIL.equals(value)) {
+            if (Const.EMAIL.equals(type)) {
                 int resultCount = userMapper.checkEmail(value);
                 if (resultCount > 0) {
                     return ServerResponse.createByErrorMessage("email已存在");
@@ -149,6 +149,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ServerResponse<User> updateInformation(User user) {
+        if(user.getUsername() == null || user.getEmail() == null){
+            return ServerResponse.createByErrorMessage("参数错误");
+        }
         //username是不能被更新的
         //email也要进行一个校验,校验新的email是不是已经存在,并且存在的email如果相同的话,不能是我们当前的这个用户的.
         int resultCount = userMapper.checkEmailByUserId(user.getEmail(), user.getId());

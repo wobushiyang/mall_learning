@@ -55,11 +55,11 @@ public class CategoryServiceImpl implements ICategoryService {
         category.setId(categoryId);
         category.setName(categoryName);
 
-        int resultCount = categoryMapper.insertSelective(category);
+        int resultCount = categoryMapper.updateByPrimaryKeySelective(category);
         if (resultCount > 0) {
-            return ServerResponse.createBySuccess("添加商品成功");
+            return ServerResponse.createBySuccess("修改商品名称成功");
         }
-        return ServerResponse.createByErrorMessage("添加商品失败");
+        return ServerResponse.createByErrorMessage("修改商品名称失败");
     }
 
     public ServerResponse<List<Category>> getChildrenParallelCategory(Integer categoryId) {

@@ -69,6 +69,8 @@ public class ShippingController {
         return iShippingService.select(user.getId(), shippingId);
     }
 
+    @RequestMapping(value = "list.do", method = RequestMethod.POST)
+    @ResponseBody
     public ServerResponse list(HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
